@@ -1,0 +1,54 @@
+// За рвботу з файлами выдповыдає встрожний пакет fs (file system)
+// Спосіб 1. Найсучасніший та найпопулярніший спосіб
+const fs = require("fs/promises");// або const fs = require("fs").promises;
+
+const func = async() => {
+    try {
+    // readFile() - Читанна файлу
+
+    // const buffer = await fs.readFile("./file.txt") // зміст файлу отримуємо в формі коду buffer
+    // const text = buffer.toSrting() // переводимо до рядка
+    // console.log(text);
+
+    // більш простіший спосіб
+    const text = await fs.readFile("./file.txt", "utf-8"); //відразу переводимо до тексту
+    console.log(text);
+    
+
+    // Дописування в файл appendFile()
+    await fs.appendFile("./file.txt", "Тещо маэ дописатися в файл"); // при визову в консоль поверне underfined але сам файл допише
+    // якщо ми хочемо дописати щось в файл якого не існує, то node.js його спочатку створить і запиши ту інфо яку ми зазначили
+
+
+    //Перезаписуванна файлу writeFile
+    await fs.writeFile("./file.txt", "Новий зміст файлу") // // при визову в консоль теж поверне underfined але сам файл перезапише
+    // якщо ми хочемо переписати файл якого не існує, то node.js його спочатку створить і запиши ту інфо яку ми зазначили
+
+    // Видалення файлу unlink() 
+    await fs.unlink("./text.txt");
+    
+    // в випадку перезаписування, дописування та видалення файлу, нам нічого не повертажться в консолі underfined - тоді зміни можно не оголошувати а відразу писати await fs.unlink....... 
+}
+  catch (error) {  // При роботы з файлами краще обробляти помилки, тому ы обгортажио в конструкцію try{} catch{}
+    console.error("Виникла помилка при роботі з файлом:", error.message);
+  }
+
+};
+
+func();
+
+// Спосіб 2. Через також через проміс але не дуже зручно
+fs.readFile("./file.txt")
+    .then(data => console.log(data))
+    .catch(error => console.log(error.message))
+
+
+// Спосіб 3. Використоввувався в перших версіях node.js
+const fs = require("fs");
+fs.readFile("./file.txt", (error, data)=>{ // після шляху, другим аргументом ми передаєм колбек функцію, яка спочатку обробляє помилку, а потім сам зміст файлу, але виводить резутьтат в формі коду buffer 
+    console.log(error);
+    console.log(data); 
+})
+
+
+
