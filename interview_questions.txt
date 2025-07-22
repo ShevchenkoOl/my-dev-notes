@@ -1,0 +1,70 @@
+# Mám magisterský titul z veřejné správy a bakalářský titul ze strojního inženýrství. Díky technickému vzdělání mám dobrý základ v logickém myšlení, práci s daty a systémovém přístupu, což mi velmi pomáhá při vývoji softwaru. Dnes se zaměřuji na backend vývoj, práci s API a TypeScriptem.
+
+
+#--------------------------------------TypeScript
+TypeScript je nadstavba JavaScriptu, která přidává statické typování. Díky tomu je kód přehlednější, bezpečnější a lépe se udržuje, zvlášť ve větších projektech.
+
+
+
+#--------------------------------------- NestJS
+🟪 Co je NestJS:
+NestJS je framework pro Node.js, napsaný v TypeScriptu. Používá architekturu podobnou jako v Angularu – pracuje s controllery, službami a moduly. Pomáhá psát strukturované a škálovatelné backend aplikace.
+
+
+
+#-------------------------------- Rozdíl mezi API a REST API
+API (Application Programming Interface) je obecný pojem pro rozhraní, které umožňuje komunikaci mezi různými částmi softwaru.
+REST API je specifický typ API, který využívá HTTP protokol a principy REST – jako jsou metody GET, POST, PUT, DELETE – pro výměnu dat mezi klientem a serverem, nejčastěji ve formátu JSON.
+
+Příklad:
+API může být knihovna v Node.js pro práci se soubory.
+REST API je webová služba, která vrací data na základě HTTP požadavků, třeba /api/počasí.
+
+
+
+#--------------------------------------------Docker
+Docker je nástroj, který umožňuje zabalit aplikaci spolu se všemi jejími závislostmi (knihovny, konfigurace, prostředí) do kontejneru.
+Kontejner běží stejně na každém počítači — ať už je to vývojářský notebook, server nebo cloud.
+Je to jako virtuální stroj, ale lehčí a rychlejší.
+Programátoři používají Docker, aby nemuseli řešit problémy typu: "U mě to funguje, ale u tebe ne."
+Příklad:
+Napíšu aplikaci v Node.js, vytvořím Docker kontejner a ten poběží stejně na každém systému bez dalších úprav.
+
+
+
+#------------------Jaký je rozdíl mezi Git a Dockerem a co s nimi dělám
+Git používám jako nástroj pro správu verzí a týmovou spolupráci.
+Umožňuje mi sledovat změny v kódu, vytvářet větve, dělat pull requesty, a spolupracovat s ostatními vývojáři.
+Umím přidat spolupracovníky, řešit konflikty při slučování větví (merge), a pracovat v týmu pomocí GitHubu nebo GitLabu.
+
+Docker naopak používám pro vytváření kontejnerů, tedy balíčků, které obsahují celý projekt i s prostředím, knihovnami a nastavením.
+To je užitečné, když chci, aby moje aplikace běžela všude stejně — ať už na jiném počítači nebo na serveru.
+Vím, jak napsat Dockerfile, jak použít docker build a docker run, a jak sdílet obraz (image) přes Docker Hub.
+
+
+
+
+#---------------------------------- Rozdil mezí Třída a Objekt
+Třída (class) je šablona, podle které se vytvářejí objekty.
+Obsahuje definici vlastností a metod, které bude mít každý objekt.
+Objekt je konkrétní instance třídy — reálný „výrobek“ vytvořený podle této šablony.
+
+🧾 Příklad, jak to říct na pohovoru:
+Například v JavaScriptu:
+Mám třídu Car, která má vlastnost brand a metodu drive().
+Když vytvořím const myCar = new Car("Toyota"), myCar je objekt vytvořený na základě třídy Car.
+
+
+
+
+# ---------------------------------- git, GitHub
+🔁 git merge – sloučení větví
+ - Spojí dvě větve dohromady.
+ - Zachová celou historii z obou větví.
+ - Může vytvořit merge commit (speciální spojovací záznam).
+ - Bezpečný při týmové práci.
+
+🔄 git rebase – přepsání historie:
+ - Přesune změny z jedné větve na konec jiné větve.
+ - Vytváří čistou, přímou historii bez odboček.
+ - Nesmí se používat na sdílených větvích (může způsobit konflikty).
