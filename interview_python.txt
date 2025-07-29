@@ -1,0 +1,43 @@
+
+#---------------------------------------ETL
+🏭 ETL je zkratka pro:
+Extract (Extrakce) – získávání dat z různých zdrojů (například API, databáze, CSV soubory).
+Transform (Transformace) – čištění, slučování, formátování a logické zpracování dat (například odstranění duplicit, převod měn, přepočítání hodnot).
+Load (Nahrání) – nahrání zpracovaných dat do cílového úložiště: databáze, analytického systému nebo reportu.
+
+🧩 Jednoduchý příklad ETL:
+Představ si, že máš za úkol sesbírat ceny produktů z různých marketplace a spočítat průměrnou cenu:
+Extract – získat JSON data z API služeb jako Allegro, Mall.cz a Heureka.
+Transform –
+převést všechny ceny na eura,
+odstranit produkty bez obrázku,
+seskupit produkty podle kategorií.
+Load – nahrát výsledná data do PostgreSQL nebo exportovat do Excelu / Google Sheets pro marketingové oddělení.
+
+
+#--------------------------------------Testing
+Testování je proces ověřování, že tvůj kód funguje správně a nezpůsobuje chyby v programu.
+Unit testy kontrolují malé části kódu (například jednotlivé funkce).
+Integrace testy ověřují, jak spolu různé části programu spolupracují.
+Automatické testy se spouští automaticky při změně kódu, aby rychle odhalily chyby.
+Používané nástroje jsou například pytest, unittest, mock a další.
+
+#-------------------------------------CI/CD
+CI/CD— Continuous Integration / Continuous Delivery (nebo Deployment)
+Continuous Integration (CI) znamená pravidelné (často i několikrát denně) spojování kódu od různých vývojářů do hlavní větve. Při tom se automaticky spouští testy, aby se ověřilo, že nový kód nepoškodil projekt.
+Continuous Delivery/Deployment (CD) je automatizace dodávání a (v některých případech) nasazení aplikace na server nebo do cloudu po úspěšném průchodu testů.
+
+Proč to používáme?
+Rychle najít a opravit chyby.
+Zajistit stabilitu a kvalitu kódu.
+Automatizovat rutinní úkoly, aby se vývojáři mohli soustředit na psaní nových funkcí.
+
+
+#--------------------------------------- Jinja2
+Jinja2 je šablonovací systém, který slouží k vytváření dynamického HTML (nebo jiných formátů) na základě šablon obsahujících proměnné a logiku.
+
+
+#---------------------------------------- Flask
+Flask je Python framework pro tvorbu webových aplikací, který používá Jinja2 k vykreslování šablon a generování odpovědí webového serveru.
+
+Takže Flask odpovídá za serverovou část — zpracování požadavků, práci s daty a tvorbu odpovědí, zatímco React slouží k vytváření interaktivního rozhraní na straně klienta s řízením stavů a dynamickým zobrazováním dat.

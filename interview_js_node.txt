@@ -1,4 +1,4 @@
-# Mám magisterský titul z veřejné správy a bakalářský titul ze strojního inženýrství. Díky technickému vzdělání mám dobrý základ v logickém myšlení, práci s daty a systémovém přístupu, což mi velmi pomáhá při vývoji softwaru. Dnes se zaměřuji na backend vývoj, práci s API a TypeScriptem.
+# Mám magisterský titul z veřejné správy a bakalářský titul ze strojního inženýrství (Hardware). Díky technickému vzdělání mám dobrý základ v logickém myšlení, práci s daty a systémovém přístupu, což mi velmi pomáhá při vývoji softwaru. Dnes se zaměřuji na backend vývoj, práci s API a TypeScriptem.
 
 
 #--------------------------------------TypeScript
@@ -68,3 +68,19 @@ Když vytvořím const myCar = new Car("Toyota"), myCar je objekt vytvořený na
  - Přesune změny z jedné větve na konec jiné větve.
  - Vytváří čistou, přímou historii bez odboček.
  - Nesmí se používat na sdílených větvích (může způsobit konflikty).
+
+
+
+ #-----------------------------------Synchronní / Asynchronní
+Synchronní funkce běží postupně jedna za druhou, každá čeká, až skončí ta předchozí, než začne další.
+Například zavoláš funkci, ta udělá svou práci a až potom pokračuje další kód.
+
+Asynchronní funkce mohou běžet a čekat na výsledek současně s jiným kódem, aniž by blokovaly program.
+Například požadavek na server běží na pozadí, zatímco program může dělat něco jiného.
+
+
+#-------------------------------------Analysa
+SEO (Search Engine Optimization) — jak lépe zviditelnit webovou stránku ve vyhledávačích.
+
+SSR (Server-Side Rendering) — způsob, jak rychle a správně zobrazit stránky ze serveru.
+Pomáhá jak s rychlostí a zážitkem uživatelů, tak s optimalizací pro vyhledávače; je oblíbený u webů, kde je klíčová dostupnost a špičkové SEO. Nejčastěji se využívá v kombinaci s moderními frameworky jako Next.js nebo Nuxt.js

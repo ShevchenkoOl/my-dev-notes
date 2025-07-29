@@ -1,0 +1,31 @@
+#----------------------------------Props
+Props (vlastnosti) jsou data, která jsou předávána komponentám z jejich rodičovských komponent. Slouží k nastavení chování nebo vzhledu komponenty zvnějšku. Props jsou neměnné (immutable) uvnitř komponenty, která je přijímá, a umožňují komponentám být znovupoužitelné a konfigurovatelné.
+
+
+#----------------------------------Hooks
+React Hooks (háčky) jsou speciální funkce, které umožňují funkčním komponentám používat stav (state) a další React funkce, které dříve byly dostupné pouze v třídových komponentách.
+
+Například:
+useState slouží k udržování a aktualizaci stavu komponenty;
+useEffect umožňuje provádět vedlejší efekty jako načítání dat nebo práci s DOM.
+Hooks pomáhají psát čistší a jednodušší kód a umožňují dobře spravovat životní cyklus komponent.
+
+
+#----------------------------------životní cyklus komponent
+V Reactu se životní cyklus komponenty skládá ze tří hlavních fází:
+- Mount (připojení) – komponenta se poprvé vykreslí a vloží do DOMu.
+- Update (aktualizace) – komponenta se překresluje při změně stavu nebo props.
+- Unmount (odpojení) – komponenta se odstraní z DOMu.
+
+Hook useEffect pokrývá všechny tyto fáze životního cyklu. Používá se k provádění vedlejších efektů v reakci na změny stavu, props nebo při samotném připojení a odpojení komponenty. Funkce uvnitř useEffect se spouští po vykreslení komponenty (tedy v mount a update fázích). Navíc může vrátit funkci, která se zavolá při odpojení komponenty (unmount), což je ekvivalent metody componentWillUnmount u třídových komponent.
+
+useEffect(() => {
+  // Kód, který se spustí po renderu komponenty (mount i update)
+
+  return () => {
+    // Kód, který se spustí při odpojení komponenty (unmount)
+  };
+}, [/* sem můžete dát závislosti, při jejichž změně se efekt spustí */]);
+
+Životní cyklus komponenty znamená fáze její existence od vytvoření přes aktualizace až po odstranění.
+useEffect je Hook, který umožňuje reagovat na tyto fáze a provádět potřebné akce jako načítání dat, čištění zdrojů, aktualizace UI apod.
