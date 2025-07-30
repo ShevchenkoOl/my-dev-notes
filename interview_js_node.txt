@@ -55,7 +55,51 @@ Mám třídu Car, která má vlastnost brand a metodu drive().
 Když vytvořím const myCar = new Car("Toyota"), myCar je objekt vytvořený na základě třídy Car.
 
 
+#---------------------------------- Objektově orientované programování (OOP)
+Objektově orientované programování (OOP) je přístup k programování, který nahlíží na program jako na soubor objektů vzájemně spolupracujících. Každý objekt spojuje data (vlastnosti) a funkce (chování) do jedné jednotky.
 
+Objektově orientované programování je styl programování, kde je hlavní jednotkou programování objekt.
+Představ si: Máš auto. To je objekt, který má:
+ - vlastnosti (např. barvu, rychlost, značku),
+ - činnosti (např. jet, zastavit, zatáčet).
+
+V OOP vytváříš takové objekty v kódu. Každý objekt je jako skutečný předmět s:
+ - daty (vlastnostmi),
+ - funkcemi (co umí dělat).
+
+Proč je to užitečné?
+ - Kód je přehlednější,
+ - Objekty lze znovu použít,
+ - Vhodné pro větší projekty.
+
+ Přiklad JS:
+ class Car {
+  constructor(color, speed) {
+    this.color = color;
+    this.speed = speed;
+  }
+
+  drive() {
+    console.log(`Auto se pohybuje rychlostí ${this.speed} km/h.`);
+  }
+}
+
+const myCar = new Car("červena", 120);
+
+console.log(`Barva auta je: ${myCar.color}`);
+myCar.drive();
+
+python:
+class Car:
+    def __init__(self, color):
+        self.color = color
+
+    def drive(self):
+        print("Auto se pohybuje!")
+
+my_car = Car("červena")
+print(my_car.color)
+my_car.drive()
 
 # ---------------------------------- git, GitHub
 🔁 git merge – sloučení větví
@@ -84,3 +128,26 @@ SEO (Search Engine Optimization) — jak lépe zviditelnit webovou stránku ve v
 
 SSR (Server-Side Rendering) — způsob, jak rychle a správně zobrazit stránky ze serveru.
 Pomáhá jak s rychlostí a zážitkem uživatelů, tak s optimalizací pro vyhledávače; je oblíbený u webů, kde je klíčová dostupnost a špičkové SEO. Nejčastěji se využívá v kombinaci s moderními frameworky jako Next.js nebo Nuxt.js
+
+
+#-------------------------------------Databáze
+Hlavní typy databází s příklady pro každý typ:
+ - Relační (SQL)
+    Data jsou uložena v tabulkách s jasně definovanou strukturou a vztahy mezi tabulkami (pomocí klíčů).
+Příklady: MySQL, PostgreSQL, Microsoft SQL Server, Oracle Database, SQLite, MariaDB.
+
+ - Nerelační (NoSQL)
+    Různé formáty ukládání: dokumenty, klíč-hodnota, grafy, sloupce. Jsou určené pro flexibilní strukturu a škálovatelnost.
+Příklady: MongoDB (dokumentová), Redis (klíč-hodnota), Cassandra (sloupcová), Neo4j (grafová), CouchDB (dokumentová).
+
+ - Hierarchické
+    Data jsou uspořádána ve stromové struktuře, kde každý záznam má jednoho rodiče.
+Příklady: IBM Information Management System (IMS).
+
+ - Síťové
+    Data jsou reprezentována jako síť vzájemně propojených záznamů, kde jeden záznam může mít více vztahů k ostatním.
+Příklady: Integrated Data Store (IDS), CA-IDMS.
+
+ - Objektově orientované
+    Databáze, kde jsou data uložena jako objekty podobné objektům v programování.
+Příklady: db4o, ObjectDB, Versant.

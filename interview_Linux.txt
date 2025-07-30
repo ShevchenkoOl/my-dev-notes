@@ -1,0 +1,3 @@
+Linux je volný operační systém s otevřeným zdrojovým kódem, který se používá na serverech, počítačích a vestavěných zařízeních. Je stabilní, bezpečný a flexibilně nastavitelný.
+
+Nejjednodušší způsob, jak používat Linux ve Windows, je využít WSL — stačí jej povolit, nainstalovat distribuci (Ubuntu, Debian) z Microsoft Store a začít využívat terminál Linuxu přímo ve Windows.

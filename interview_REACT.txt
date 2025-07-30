@@ -29,3 +29,23 @@ useEffect(() => {
 
 Životní cyklus komponenty znamená fáze její existence od vytvoření přes aktualizace až po odstranění.
 useEffect je Hook, který umožňuje reagovat na tyto fáze a provádět potřebné akce jako načítání dat, čištění zdrojů, aktualizace UI apod.
+
+
+
+#-------------------------------------------Virtual DOM v Reactu
+Virtual DOM je kopie skutečného DOM, kterou React používá v paměti JS jako objekt, aby mohl rychleji aktualizovat uživatelské rozhraní.
+Nejdřív upraví Virtual DOM, porovná starou a novou verzi a změní jen to, co je potřeba ve skutečném DOM.
+
+🧠 Proč "virtuální"?
+Protože to není skutečný DOM, ale model uložený v paměti JavaScriptu.
+
+Když napíšeš třeba:
+<h1>Ahoj</h1>
+
+React nejdřív vytvoří objekt v paměti, například:
+{
+  type: 'h1',
+  props: {
+    children: 'Ahoj'
+  }
+}
