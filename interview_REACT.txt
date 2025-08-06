@@ -25,7 +25,7 @@ useEffect(() => {
   return () => {
     // Kód, který se spustí při odpojení komponenty (unmount)
   };
-}, [/* sem můžete dát závislosti, při jejichž změně se efekt spustí */]);
+}, [/* sem můžete dát závislosti, při jejichž změně se efekt spustí, Pole [závislosti] je seznam proměnných, jejichž změna způsobí opětovné spuštění efektu. Pokud je toto pole prázdné, efekt se provede pouze jednou – při prvním zobrazení komponenty. */]);
 
 Životní cyklus komponenty znamená fáze její existence od vytvoření přes aktualizace až po odstranění.
 useEffect je Hook, který umožňuje reagovat na tyto fáze a provádět potřebné akce jako načítání dat, čištění zdrojů, aktualizace UI apod.
