@@ -1,6 +1,13 @@
-// За рвботу з файлами выдповыдає встрожний пакет fs (file system)
+// За рвботу з файлами выдповыдає встроєний пакет fs (file system)
 // Спосіб 1. Найсучасніший та найпопулярніший спосіб
 const fs = require("fs/promises");// або const fs = require("fs").promises;
+// для того щоб перевірити чи праильно встановлений модуль:
+try {
+    const files = await fs.readdir(".");
+    console.log("Список файлів у поточній папці: ", files);
+} catch (error) {
+    console.log("Помилка при читанні папки", error)
+}
 
 const func = async() => {
     try {
@@ -21,9 +28,23 @@ const func = async() => {
 
 
     //Перезаписуванна файлу writeFile
-    await fs.writeFile("./file.txt", "Новий зміст файлу") // // при визову в консоль теж поверне underfined але сам файл перезапише
+    await fs.writeFile("./file.txt", "Новий зміст файлу") // при визові в консоль теж поверне underfined але сам файл перезапише
     // якщо ми хочемо переписати файл якого не існує, то node.js його спочатку створить і запиши ту інфо яку ми зазначили
-
+    
+    
+    // якщо ми працюємо з форматом json, то спочатку оголошужм зміну зі змістом нової інформації
+        const newContact = {
+            id: 'ZZW',
+            name: 'Jose La Costa',
+            email: 'lacosta@gmail.com',
+            phone: '7789578541'
+        };
+    // потім перетворюємо в JSON з відступами для читабельності
+        const jsonData = JSON.stringify(newContact, null, 2);
+    // а потім перезаписужмо файл
+        await fs.writeFile("contacts.json", jsonData, "utf-8");
+    
+    
     // Видалення файлу unlink() 
     await fs.unlink("./text.txt");
     

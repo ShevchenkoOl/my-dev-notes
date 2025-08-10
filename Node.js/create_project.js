@@ -27,7 +27,7 @@
 // 4. прописуємо скрипти для запуску проекта и для розробки:
 //    scripts: {
 //       "start": "node index", - node index - це команда в node яка запускає файл в термалі (index - це назва файлу вона може бути іншою), коли ми в терміналі напишимо npm start то VScode запустить команду node index, тобто запустить файл index.js 
-//       "dev": "nodemon index"
+//       "dev": "nodemon index"  // вбо якщо основний файл app.js - "node ./app.js" і відповідно "nodemon ./app.js"
 //     }  
 // скрипти start та test є зарезервовані скрипти, тому їх запуск робимо через команду npm start/test, всі інші, наприклад dev - через npm run dev
 
