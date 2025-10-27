@@ -1,10 +1,12 @@
 # Mám magisterský titul z veřejné správy a bakalářský titul ze strojního inženýrství (Hardware). Díky technickému vzdělání mám dobrý základ v logickém myšlení, práci s daty a systémovém přístupu, což mi velmi pomáhá při vývoji softwaru. Dnes se zaměřuji na backend vývoj, práci s API a TypeScriptem.
 
+Měl jsem zkušenosti s prací ve firmě, ale většinu času jsem se věnoval freelance projektům. Díky tomu jsem získal praktické dovednosti a samostatnost. Teď chci pracovat v týmu, abych se dál rozvíjel jako vývojář a podílel se na společných projektech.
+
 
 #--------------------------------------TypeScript
 TypeScript je nadstavba JavaScriptu, která přidává statické typování. Díky tomu je kód přehlednější, bezpečnější a lépe se udržuje, zvlášť ve větších projektech.
 
-
+peapka
 
 #--------------------------------------- NestJS
 🟪 Co je NestJS:
@@ -115,7 +117,7 @@ my_car.drive()
 
 
 
- #-----------------------------------Synchronní / Asynchronní
+#-----------------------------------Synchronní / Asynchronní
 Synchronní funkce běží postupně jedna za druhou, každá čeká, až skončí ta předchozí, než začne další.
 Například zavoláš funkci, ta udělá svou práci a až potom pokračuje další kód.
 

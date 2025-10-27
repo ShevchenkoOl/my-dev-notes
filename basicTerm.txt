@@ -1,0 +1,30 @@
+MBS (Merchant Business Services nebo Merchant and Banking Systems) 
+
+MVP (Minimálně životaschopný produkt) je základní verze produktu, která obsahuje pouze nejdůležitější funkce potřebné k vyřešení klíčového problému uživatele a ověření obchodní hypotézy. Cílem MVP je co nejrychleji a s minimálními náklady otestovat nápad na skutečných uživatelích, získat zpětnou vazbu a zjistit, zda má smysl produkt dále rozvíjet.
+Hlavní vlastnosti MVP:
+            - Minimum funkcí, ale dostatečné pro použití
+            - Rychlý vývoj a spuštění
+            - Možnost sběru zpětné vazby
+            - Základ pro další vylepšení
+
+SSR — Server-Side Rendering
+Běžný React se vykresluje na straně klienta (v prohlížeči).
+Next.js ale dokáže vykreslit stránky na serveru – ještě předtím, než se pošlou do prohlížeče.
+SSR znamená, že stránka se připraví už na serveru, takže se načte rychleji a je lepší pro SEO
+
+SEO — Search Engine Optimization,
+optimalizace pro vyhledávače - Jedná se o soubor metod, které pomáhají webovým stránkám dosahovat vyšších pozici ve výsledcích vyhledávání.
+
+UI (User Interface) — design uživatelského rozhraní Jde o to, jak produkt vypadá. UI designér se věnuje:
+        1. Tlačítkům, menu, ikonám
+        2. Barvám, písmům, mezerám
+        3. Vizuálnímu stylu
+        4. Animacím a přechodům
+UI tedy dělá rozhraní krásným a vizuálně příjemným.
+
+UX (User Experience) — design uživatelské zkušenosti Jde o to, jak produkt funguje a jaké pocity má člověk při jeho používání. UX designér se zaměřuje na:
+        1. Logiku a strukturu aplikace nebo webu
+        2. Pohodlnou navigaci
+        3. Řešení problémů uživatele
+        4. To, jak snadné a příjemné je dosáhnout cíle
+Například UX designér promýšlí, kolik kroků je potřeba k dokončení objednávky v e-shopu, aby to bylo jednoduché a srozumitelné.
