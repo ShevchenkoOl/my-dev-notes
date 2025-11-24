@@ -1,3 +1,7 @@
+CDN — Content Delivery Network- Je to globální síť serverů rozmístěných po celém světě. Ukládají kopie souborů (například CSS, JS nebo obrázků) a poskytují je uživateli z nejbližšího serveru, aby se stránka načítala rychleji.
+
+CLI — Command Line Interface, rozhraní příkazového řádku
+
 MBS (Merchant Business Services nebo Merchant and Banking Systems) 
 
 MVP (Minimálně životaschopný produkt) je základní verze produktu, která obsahuje pouze nejdůležitější funkce potřebné k vyřešení klíčového problému uživatele a ověření obchodní hypotézy. Cílem MVP je co nejrychleji a s minimálními náklady otestovat nápad na skutečných uživatelích, získat zpětnou vazbu a zjistit, zda má smysl produkt dále rozvíjet.
@@ -7,13 +11,17 @@ Hlavní vlastnosti MVP:
             - Možnost sběru zpětné vazby
             - Základ pro další vylepšení
 
-SSR — Server-Side Rendering
-Běžný React se vykresluje na straně klienta (v prohlížeči).
+npm — Node Package Manager - Je to nástroj, který umožňuje instalovat, aktualizovat a spravovat knihovny a závislosti pro projekty v jazyce JavaScript.
+
+npx — Node Package eXecute - Umožňuje spouštět balíčky přímo, aniž by bylo nutné je předem instalovat.
+
+SASS (Syntactically Awesome Stylesheets) - Je to CSS preprocesor, který přidává užitečné funkce, které v běžném CSS chybí — například proměnné, zanořování a mixiny.
+
+SSR — Server-Side Rendering. Běžný React se vykresluje na straně klienta (v prohlížeči).
 Next.js ale dokáže vykreslit stránky na serveru – ještě předtím, než se pošlou do prohlížeče.
 SSR znamená, že stránka se připraví už na serveru, takže se načte rychleji a je lepší pro SEO
 
-SEO — Search Engine Optimization,
-optimalizace pro vyhledávače - Jedná se o soubor metod, které pomáhají webovým stránkám dosahovat vyšších pozici ve výsledcích vyhledávání.
+SEO — Search Engine Optimization, optimalizace pro vyhledávače - Jedná se o soubor metod, které pomáhají webovým stránkám dosahovat vyšších pozici ve výsledcích vyhledávání.
 
 UI (User Interface) — design uživatelského rozhraní Jde o to, jak produkt vypadá. UI designér se věnuje:
         1. Tlačítkům, menu, ikonám

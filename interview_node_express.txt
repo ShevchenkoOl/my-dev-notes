@@ -1,0 +1,54 @@
+✅ Event Loop:
+Event Loop je mechanismus v Node.js, který zajišťuje asynchronní a neblokující chování aplikace. Organizuje provádění kódu do jednotlivých fází, zpracovává časovače, microtasks a další callbacky. Synchronous kód se provede první, potom microtasks (Promises) a poté další události podle fází Event Loop.
+
+✅ Callback queue je fronta callbacků, které čekají, až bude call stack prázdný. Event Loop je postupně přesouvá ke zpracování.
+
+✅ Microtasks jsou úlohy s vyšší prioritou než běžné callbacky – například Promises. Provádějí se hned po synchronním kódu a před callback queue.
+
+✅ Promise je objekt, který představuje výsledek asynchronní operace. Umožňuje psát asynchronní kód bez zanořených callbacků pomocí řetězení .then a .catch a tvoří základ syntaxe async/await. Promise má tři stavy: pending, fulfilled a rejected.
+
+✅ I/O (input/output) - jsou operace vstupu/výstupu: práce se soubory, sítí, databázemi a dalšími externími zdroji. V Node.js se tyto operace provádějí asynchronně pomocí knihovny libuv, aby neblokovaly hlavní JavaScriptový thread.
+
+✅ non-blocking I/O - Je to způsob, kdy Node.js nemusí čekat na dokončení operace (např. čtení z disku). Místo toho registruje callback nebo promise a může mezitím zpracovávat další požadavky.
+
+✅ Jaký je rozdíl mezi CommonJS a ES Modules?
+ - CommonJS používá require a module.exports a je to původní systém Node.js.
+ - ES Modules používají import a export, jsou standardem v moderním JavaScriptu.
+V Node.js dnes lze používat oba, ale ESM je preferovaný.
+
+✅ Call stack je zásobník, ve kterém JavaScript uchovává informace o právě vykonávaných funkcích. JavaScript je jednovláknový, takže v jednu chvíli může běžet jen jedna funkce. 
+
+✅ Callback je funkce, která se zavolá po dokončení asynchronní operace.
+
+✅ Async/await je pohodlný zápis nad Promises, díky kterému vypadá asynchronní kód jako synchronní.
+
+✅ Stream je způsob zpracování dat po částech bez nutnosti načíst vše do paměti.
+Typy streamů: 
+    - Readable – proud pro čtení dat po částech.
+    - Writable – proud pro zápis dat po částech.
+    - Duplex – proud, který umožňuje čtení i zápis zároveň.
+    - Transform – proud, který data během průchodu mění (např. komprese).
+
+✅ Buffer je struktura pro práci s binárními daty v Node.js (např. soubory, síťové pakety)
+const buf = Buffer.from('Hello, Node.js!');
+
+console.log(buf);
+// <Buffer 48 65 6c 6c 6f 2c 20 4e 6f 64 65 2e 6a 73>
+
+console.log(buf.toString());
+// 'Hello, Node.js!'
+
+✅ Process, Threads (Worker Threads)
+process – globální objekt Node.js, který obsahuje informace o procesu: PID, env, argv, cwd.
+process.nextTick() – mikrotask s nejvyšší prioritou.
+
+Worker Threads – mechanismus Node.js pro vytváření dalších vláken pro náročné (CPU-bound) úlohy.
+
+✅Co je middleware v Expressu?
+Middleware je funkce, která dostane req, res a next.
+Slouží k logování, autentizaci, validaci, práci s tělem požadavku atd.
+Voláním next() se posune zpracování dál.
+
+✅ Jak funguje error-handling middleware?
+Je to speciální middleware s podpisem (err, req, res, next).
+Když předám chybu pomocí next(err), Express přesměruje tok do tohoto handleru, kde mohu vrátit správnou odpověď (např. 500).

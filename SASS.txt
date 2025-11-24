@@ -44,7 +44,7 @@ project/
     "format": "compressed",  // скомпилированный CSS-файл будет минимизирован — все лишние пробелы, переносы строк и комментарии будут удалены, и весь CSS будет записан в одну строку или максимально сжато.
     "extensionName": ".min.css", 
     "savePath": "/css"
-  },
+  }
+    ],
   "liveSassCompile.settings.generateMap": false // если мы не хотим что-бы для нас генерировался файл css.map
-]
     }
