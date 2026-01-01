@@ -1,11 +1,26 @@
 ✅ Event Loop:
 Event Loop je mechanismus v Node.js, který zajišťuje asynchronní a neblokující chování aplikace. Organizuje provádění kódu do jednotlivých fází, zpracovává časovače, microtasks a další callbacky. Synchronous kód se provede první, potom microtasks (Promises) a poté další události podle fází Event Loop.
 
+✅ Call stack je zásobník, ve kterém JavaScript uchovává informace o právě vykonávaných funkcích. JavaScript je jednovláknový, takže v jednu chvíli může běžet jen jedna funkce. 
+
+✅ Callback je funkce, která se zavolá po dokončení asynchronní operace.
+
 ✅ Callback queue je fronta callbacků, které čekají, až bude call stack prázdný. Event Loop je postupně přesouvá ke zpracování.
 
 ✅ Microtasks jsou úlohy s vyšší prioritou než běžné callbacky – například Promises. Provádějí se hned po synchronním kódu a před callback queue.
 
+✅ Macrotasks:
+    - setTimeout
+    - setInterval
+    - setImmediate (Node.js)
+    - I/O callbacks
+    - UI events (в браузере)
+
 ✅ Promise je objekt, který představuje výsledek asynchronní operace. Umožňuje psát asynchronní kód bez zanořených callbacků pomocí řetězení .then a .catch a tvoří základ syntaxe async/await. Promise má tři stavy: pending, fulfilled a rejected.
+
+✅ Jaký je rozdíl mezi setTimeout a Promise mikroúlohami?
+setTimeout je macrotask, provádí se v timers fázi event loopu.
+Promises jsou microtasks a mají vyšší prioritu — provedou se dříve.
 
 ✅ I/O (input/output) - jsou operace vstupu/výstupu: práce se soubory, sítí, databázemi a dalšími externími zdroji. V Node.js se tyto operace provádějí asynchronně pomocí knihovny libuv, aby neblokovaly hlavní JavaScriptový thread.
 
@@ -15,10 +30,6 @@ Event Loop je mechanismus v Node.js, který zajišťuje asynchronní a neblokuj�
  - CommonJS používá require a module.exports a je to původní systém Node.js.
  - ES Modules používají import a export, jsou standardem v moderním JavaScriptu.
 V Node.js dnes lze používat oba, ale ESM je preferovaný.
-
-✅ Call stack je zásobník, ve kterém JavaScript uchovává informace o právě vykonávaných funkcích. JavaScript je jednovláknový, takže v jednu chvíli může běžet jen jedna funkce. 
-
-✅ Callback je funkce, která se zavolá po dokončení asynchronní operace.
 
 ✅ Async/await je pohodlný zápis nad Promises, díky kterému vypadá asynchronní kód jako synchronní.
 
@@ -40,15 +51,55 @@ console.log(buf.toString());
 
 ✅ Process, Threads (Worker Threads)
 process – globální objekt Node.js, který obsahuje informace o procesu: PID, env, argv, cwd.
-process.nextTick() – mikrotask s nejvyšší prioritou.
+    - process.nextTick() – mikrotask s nejvyšší prioritou.
 
-Worker Threads – mechanismus Node.js pro vytváření dalších vláken pro náročné (CPU-bound) úlohy.
+    - Worker Threads – mechanismus Node.js pro vytváření dalších vláken pro náročné (CPU-bound) úlohy.
 
 ✅Co je middleware v Expressu?
 Middleware je funkce, která dostane req, res a next.
 Slouží k logování, autentizaci, validaci, práci s tělem požadavku atd.
 Voláním next() se posune zpracování dál.
+next() se používá tehdy:
+    - když middleware dokončil svou práci a má předat řízení dalšímu middleware.
+    - Pokud je do next() předán argument, Express přejde na error middleware.
+    - next() se nevolá, pokud middleware už poslal odpověď.
+
+✅ Co se stane, když v middleware nezavolám next()?
+Požadavek se nikdy nedokončí. Express bude „viset“ a neodešle odpověď.
 
 ✅ Jak funguje error-handling middleware?
 Je to speciální middleware s podpisem (err, req, res, next).
 Když předám chybu pomocí next(err), Express přesměruje tok do tohoto handleru, kde mohu vrátit správnou odpověď (např. 500).
+
+✅express.json()
+Je to middleware, který automaticky rozparsuje JSON tělo požadavku a uloží ho do req.body.
+
+✅ router v Expressu
+umožňuje rozdělit API logicky do menších modulů.
+Např. /users a /products mohou mít vlastní router, což zlepšuje strukturu projektu.
+
+✅ Jak funguje JWT (JSON Web Token)
+Server vytvoří token s payloadem a podepíše ho tajným klíčem. Klient posílá token v hlavičce Authorization. Server při každém požadavku ověří podpis a platnost tokenu. JWT se používá pro autentizaci bez ukládání session na serveru.
+
+✅ CORS (Cross-Origin Resource Sharing)
+Bezpečnostní mechanismus prohlížečů, který omezuje požadavky mezi různými doménami. Aby server povolil tento přístup, musí nastavit hlavičky jako Access-Control-Allow-Origin.
+
+✅ Jaký je rozdíl mezi SQL a NoSQL databází?
+SQL databáze používají tabulky, pevnou strukturu a podporují transakce.
+NoSQL databáze jsou flexibilnější, pracují s dokumenty, klíč–hodnota nebo grafy.
+Výběr záleží na projektu.
+
+✅ Co je index v databázi?
+Index zrychluje vyhledávání, protože databáze nemusí procházet všechny záznamy.
+Nevýhoda: zabírá místo a zpomaluje zápisy.
+
+✅ Jak implementujete stránkování (pagination)?
+Pomocí parametrů limit a offset (nebo page).
+Např. limit=20&page=2. Na základě toho se spočítá počet přeskočených záznamů.
+
+✅ Co je to environment variable a proč se používá?
+Je to proměnná uložená mimo kód (např. v .env).
+Používá se na citlivé údaje jako DB hesla, JWT secret nebo API klíče.
+
+
+✅✅✅✅✅✅✅✅
