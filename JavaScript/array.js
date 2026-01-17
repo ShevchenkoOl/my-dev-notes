@@ -23,3 +23,10 @@ const contacts = [
 
 // .find(...) - шукає перший елемент масиву, який задовольняє певну умову, і повертає цей елемент. Якщо нічого не знайде — поверне undefined. 
 // console.log(contacts.find(contact => contact.id === "drsAJ4SHPYqZeG-83QTVW"));
+
+// .findIndex(...) - шукає перший елемент масиву, який задовольняє певну умову, і повертає його індекс. Якщо нічого не знайде — поверне -1
+// console.log(contacts.findIndex(contact => contact.id === "drsAJ4SHPYqZeG-83QTVW"));
+
+//.map — это метод массивов в JavaScript, который преобразует каждый элемент массива и возвращает новый массив.
+// const newArr = contacts.map(contact => contact.name);
+// console.log(newArr);

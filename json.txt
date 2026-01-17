@@ -1,0 +1,39 @@
+JSON (JavaScript Object Notation) — это текстовый формат для передачи данных, то есть мы всегда работаем со строкой.
+
+JS Object
+   ↓ JSON.stringify()
+JSON string
+   ↓ запись в файл
+-------------------
+файл.json
+-------------------
+   ↑ чтение из файла
+JSON string
+   ↑ JSON.parse()
+JS Object
+
+Методы работы, есть два основных методв для работы с JSON:
+    1️⃣. stringify() - используеться когда мы отправляем данные на сервер или сохраняем в localStorage или записыаем строку в файл формата json:
+
+    const user = { name: "Alex", age: 30 };
+    const json = JSON.stringify(user);
+    console.log(json); // '{"name":"Alex","age":30}'
+
+    2️⃣. parse() - используеться когда мы получаем данные с сервер или читем с localStorage или читаем файл формата json:
+
+    const json = '{"name":"Alex","age":30}';
+    const user = JSON.parse(json);
+    или
+    JSON.parse('{"a":1}'); - парсят только строку!
+    console.log(user.name); // Alex
+
+
+Ⓜ️Тоже самое происходит и при роботе с массивами, ничего нового:
+
+const todos = [
+  { id: 1, text: "Learn JS" },
+  { id: 2, text: "Drink coffee" }
+];
+
+const json = JSON.stringify(todos);
+const parsed = JSON.parse(json);
