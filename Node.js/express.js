@@ -81,7 +81,7 @@ app.use((req, res) => {
                 app.use(express.json());
   
 
-// Якщо нам потрібно взяти динамічну частину URL, http://localhost:3000/user/Alex, наприклад ім'я Alex - використовуемо метод req.params:
+// Якщо нам потрібно взяти динамічну частину URL, http://localhost:3000/user/Alex, :name - rout (URL) paramentr, параметр маршруту, наприклад ім'я Alex - використовуемо метод req.params: 
 app.get("/user/:name", (req, res) => {
     const userName = req.params.name;
  res.send(`<h1>Привет, ${userName}!</h1>`) // Привет Alex!

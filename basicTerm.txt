@@ -1,3 +1,10 @@
+IDE - Integrated Development Environment, это не просто текстовый редактор в виде блокнота, а целый набор инструментов в одной программе которые необзодимы для полноценного програмирования (Nejedná se jen o textový editor podobný poznámkovému bloku, ale o celou sadu nástrojů v jednom programu, které jsou nezbytné pro plnohodnotné programování):
+                - Текстовый редактор (где пишем код) - Textový editor (kde píšeme kód).
+                - Файловый менеджер (дерево папок проекта) - Správce souborů (strom složek projektu).
+                - Терминал (командная строка для запуска тестов или сборки проекта) - Terminál (příkazový řádek pro spouštění testů nebo sestavování projektu).
+                - Отладчик (Debugger) (инструмент для поиска ошибок) - Debugger (nástroj pro detekci chyb).
+                - Система контроля версий (Git) (чтобы сохранять изменения в коде) - Systém pro správu verzí (Git) (pro ukládání změn kódu).
+
 CDN — Content Delivery Network- Je to globální síť serverů rozmístěných po celém světě. Ukládají kopie souborů (například CSS, JS nebo obrázků) a poskytují je uživateli z nejbližšího serveru, aby se stránka načítala rychleji.
 
 CLI — Command Line Interface, rozhraní příkazového řádku

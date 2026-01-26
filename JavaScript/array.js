@@ -18,7 +18,9 @@ const contacts = [
 // console.log(contacts);
 
 // .filter(...) — метод масиву, який створює новий масив, залишаючи лише ті елементи, для яких умова в дужках повертає true.
-// console.log(contacts.filter(contact => contact.id != "drsAJ4SHPYqZeG-83QTVW")); // поверне новий масив, в якому не буде обєкта контакта з id "drsAJ4SHPYqZeG-83QTVW"ю Підхоьить для видалення.
+// console.log(contacts.filter(contact => contact.id != "drsAJ4SHPYqZeG-83QTVW")); // поверне новий масив, в якому не буде обєкта контакта з id "drsAJ4SHPYqZeG-83QTVW"ю Підходить для видалення.
+// або
+// console.log(arr.filter(letter => !"aeioAEIO".includes(letter))) // - поверне массив у якому вже не буде голосних літер aeioAEIO
 
 
 // .find(...) - шукає перший елемент масиву, який задовольняє певну умову, і повертає цей елемент. Якщо нічого не знайде — поверне undefined. 
@@ -30,3 +32,6 @@ const contacts = [
 //.map — это метод массивов в JavaScript, который преобразует каждый элемент массива и возвращает новый массив.
 // const newArr = contacts.map(contact => contact.name);
 // console.log(newArr);
+
+// arr.includes(" ") - перевіряж весь масив arr на співпадіння, що є в лапках, якщо співпадіння є поаертає true  
+// "vowes".includes("a") // false
