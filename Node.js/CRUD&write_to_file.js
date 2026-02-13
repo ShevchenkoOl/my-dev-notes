@@ -168,6 +168,185 @@ const startServer = async() => {
     }
 };
 
+// app.get("/products", async (req, res)=> {
+//      try {
+//         const data = await fs.readFile(dbPath, "UTF-8");
+//         products = JSON.parse(data);
+//         res.json(products)
+//     } catch (error) {
+//         console.error("❌ Ошибка при старте: файл не найден или пуст");
+//         products = []; // Если файла нет, начинаем с пустого списка
+//     }  
+// });
+
+// app.get("/products/:id", async (req, res) => {
+//     try {
+//         const prodID = req.params.id;
+
+//         //Читаем актуальные данный из файла:
+//         const data = await fs.readFile(dbPath, "UTF-8");
+//         const products = JSON.parse(data);
+
+//         const findProd = products.find(prod => prodID == prod.id);
+//         if(findProd){
+//             res.status(201).json(findProd);
+//         } else (
+//             res.status(400).json({ message: "Товар не найден!" })
+//         )
+//     } catch (error) {
+//         res.status(500).json({ message: "Ошибка сервера при поиске товара" });
+//     }
+    
+// })
+
+// app.post("/products", async (req, res) => {
+//     try {
+//         // 1. Сначала читаем актуальный список товаров из файла
+//         const data = await fs.readFile(dbPath, "UTF-8");
+//         const currentProducts = JSON.parse(data);
+
+//         // 2. Создаем новый товар
+//         const newProduct = {
+//             id: nanoid(3),
+//             name: req.body.name,
+//             price: req.body.price
+//         };
+
+//         // 3. Добавляем его в список, который только что прочитали
+//         currentProducts.push(newProduct);
+    
+//     // 4. Записываем ОБНОВЛЕННЫЙ список обратно (БЕЗ колбэка!)
+//         await fs.writeFile(dbPath, JSON.stringify(currentProducts, null, 2));
+
+//         // 5. Отправляем ответ (уже после завершения записи)
+//         res.status(201).json({
+//             message: "Товар успешно добавлен", 
+//             product: newProduct
+//     });
+//     } catch (error) {
+//         res.status(500).json({ message: "Ошибка сервера при добавления товара" });
+//     }
+// })
+
+
+// app.delete("/products/:id", async (req, res) => {
+// try {
+//     const delProd = req.params.id;
+//     const data = await fs.readFile(dbPath, "UTF-8");
+//     let products = JSON.parse(data);
+
+//     const findIndex = products.find(p => delProd == p.id);
+//     if(!findIndex){
+//         return  res.status(400).json({message: "Товар не найден"})
+//     }
+//         products = products.filter(p=> delProd != p.id);
+
+//         await fs.writeFile(dbPath, JSON.stringify(products, null, 2));
+//         res.status(201).json({
+//         message: "Товар успешно удалён",
+//         products: products
+//     });
+
+// } catch (error) {
+//     res.status(500).json({message: "Ошибка при удалении"});
+// }    
+// })
+
+
+// // put - полное изменение
+// app.put("/products/:id", async(req, res)=>{
+//     try {
+//         const udateProd = req.params.id;
+//         const data = await fs.readFile(dbPath, "UTF-8");
+//         let products = JSON.parse(data);
+//         const findIndex = products.findIndex(p => udateProd == p.id);
+
+//         if(findIndex != -1){
+//             products[findIndex] = {
+//                 id: udateProd,
+//                 ...req.body
+//             }
+//         await fs.writeFile(dbPath, JSON.stringify(products, null, 2));
+//             res.status(201).json({
+//             message: "Товар успешно изменён",
+//             products: products
+//             });
+//         } else {
+//             return  res.status(400).json({message: "Товар не найден"})
+//         }
+//     } catch (error) {
+//         res.status(500).json({message: "Ошибка при обновлении"})
+//     }
+// })
+
+// // patch - это частичное изменение файла, например я хочу изменить только цену или название
+// app.patch("/products/:id", async(req, res)=>{
+//     try {
+//         const patchProd = req.params.id;
+//         const data = await fs.readFile(dbPath, "UTF-8")
+//         let products = JSON.parse(data);
+//         const findIndex = products.findIndex(p => patchProd == p.id);
+
+//         if(findIndex != -1){
+//             products[findIndex] = {
+//                 ...products[findIndex], // ... оператор spread, что придёт в body - измени, остальное оставь как было в products[findIndex]
+//                 ...req.body
+//             }
+//         await fs.writeFile(dbPath, JSON.stringify(products, null, 2))
+//         res.status(201).json({
+//         message: "Товар успешно изменён",
+//         products: products
+//         });
+//         } else {
+//             return  res.status(400).json({message: "Товар не найден"})
+//         }
+//     } catch (error) {
+//         res.status(500).json({message: "Ошибка при изменении товара"})
+//     }
+
+// })
+
+
+
+
+
+
+
+
+// создаём собтвенный Middleware для проверки ID
+// это функция посредник которая облегчает работать остальным запросам
+// GET /products — просто отдает всё.
+// GET /products/:id — checkId нашел, роут отдал.
+// POST /products — валидация -> запись.
+// DELETE /products/:id — checkId нашел, роут удалил -> запись.
+// PUT/PATCH /products/:id — checkId нашел, валидация проверила, роут изменил -> запись.
+
+const checkId = async(req, res, next) => {
+try {
+    const data = await fs.readFile(dbPath, "UTF-8");
+    const products = JSON.parse(data);
+    const product = products.find(prod => prod.id === req.params.id);
+    const index = products.findIndex(p => p.id == req.params.id);
+
+    
+    if(!product){
+        return res.status(404).json({message: "Такой ID не найден"})
+    }
+
+    //Сохраняем найденный товар и весь список в req, 
+    // чтобы не читать файл заново в самом роуте!
+    req.foundProduct = product;
+    req.allProducts = products;
+    req.productIndex = index;
+
+    // проверка пройдена идём к роутеру
+    next();
+} catch (error) {
+    res.status(500).json({ message: "Ошибка сервера в Middleware" });
+}
+};
+
+
 app.get("/products", async (req, res)=> {
      try {
         const data = await fs.readFile(dbPath, "UTF-8");
@@ -179,132 +358,57 @@ app.get("/products", async (req, res)=> {
     }  
 });
 
-app.get("/products/:id", async (req, res) => {
-    try {
-        const prodID = req.params.id;
+// после того как мы создали Midlleware, теперь мы его используем там где у нас есть поиск по id
+app.get('/products/:id', checkId, (req, res)=>{
+    res.json(req.foundProduct);
+});
 
-        //Читаем актуальные данный из файла:
-        const data = await fs.readFile(dbPath, "UTF-8");
-        const products = JSON.parse(data);
-
-        const findProd = products.find(prod => prodID == prod.id);
-        if(findProd){
-            res.status(201).json(findProd);
-        } else (
-            res.status(400).json({ message: "Товар не найден!" })
-        )
-    } catch (error) {
-        res.status(500).json({ message: "Ошибка сервера при поиске товара" });
-    }
-    
-})
-
-app.post("/products", async (req, res) => {
-    try {
-        // 1. Сначала читаем актуальный список товаров из файла
-        const data = await fs.readFile(dbPath, "UTF-8");
-        const currentProducts = JSON.parse(data);
-
-        // 2. Создаем новый товар
-        const newProduct = {
-            id: nanoid(3),
-            name: req.body.name,
-            price: req.body.price
-        };
-
-        // 3. Добавляем его в список, который только что прочитали
-        currentProducts.push(newProduct);
-    
-    // 4. Записываем ОБНОВЛЕННЫЙ список обратно (БЕЗ колбэка!)
-        await fs.writeFile(dbPath, JSON.stringify(currentProducts, null, 2));
-
-        // 5. Отправляем ответ (уже после завершения записи)
-        res.status(201).json({
-            message: "Товар успешно добавлен", 
-            product: newProduct
-    });
-    } catch (error) {
-        res.status(500).json({ message: "Ошибка сервера при добавления товара" });
-    }
-})
-
-
-app.delete("/products/:id", async (req, res) => {
-try {
-    const delProd = req.params.id;
-    const data = await fs.readFile(dbPath, "UTF-8");
-    let products = JSON.parse(data);
-
-    const findIndex = products.find(p => delProd == p.id);
-    if(!findIndex){
-        return  res.status(400).json({message: "Товар не найден"})
-    }
-        products = products.filter(p=> delProd != p.id);
-
-        await fs.writeFile(dbPath, JSON.stringify(products, null, 2));
+app.delete('/products/:id', checkId, async (req, res)=>{
+        const updatedProducts = req.allProducts.filter(p => p.id != req.params.id);
+        await fs.writeFile(dbPath, JSON.stringify(updatedProducts, null, 2));
         res.status(201).json({
         message: "Товар успешно удалён",
-        products: products
-    });
-
-} catch (error) {
-    res.status(500).json({message: "Ошибка при удалении"});
-}    
+        products: updatedProducts
 })
+});
 
-
-// put - полное изменение
-app.put("/products/:id", async(req, res)=>{
+app.put("/products/:id", checkId, async (req, res) => {
     try {
-        const udateProd = req.params.id;
-        const data = await fs.readFile(dbPath, "UTF-8");
-        let products = JSON.parse(data);
-        const findIndex = products.findIndex(p => udateProd == p.id);
+        // Валидация (твой отдельный файл)
+        const error = validateProduct(req.body);
+        if (error) return res.status(400).json({ message: error });
 
-        if(findIndex != -1){
-            products[findIndex] = {
-                id: udateProd,
-                ...req.body
-            }
+        // Нам не нужно искать! Мы просто берем индекс из Middleware
+        const index = req.productIndex;
+        const products = req.allProducts;
+
+        products[index] = { id: req.params.id, ...req.body };
+
         await fs.writeFile(dbPath, JSON.stringify(products, null, 2));
-            res.status(201).json({
-            message: "Товар успешно изменён",
-            products: products
-            });
-        } else {
-            return  res.status(400).json({message: "Товар не найден"})
-        }
-    } catch (error) {
-        res.status(500).json({message: "Ошибка при обновлении"})
+        res.json({ message: "Обновлено полностью", product: products[index] });
+    } catch (e) {
+        res.status(500).json({ message: "Ошибка сервера" });
     }
-})
+});
 
-// patch - это частичное изменение файла, например я хочу изменить только цену или название
-app.patch("/products/:id", async(req, res)=>{
+
+app.patch("/products/:id", checkId, async (req, res) => {
     try {
-        const patchProd = req.params.id;
-        const data = await fs.readFile(dbPath, "UTF-8")
-        let products = JSON.parse(data);
-        const findIndex = products.findIndex(p => patchProd == p.id);
+        const error = validateProduct(req.body, true); // true для PATCH
+        if (error) return res.status(400).json({ message: error });
 
-        if(findIndex != -1){
-            products[findIndex] = {
-                ...products[findIndex], // ... оператор spread, что придёт в body - измени, остальное оставь как было в products[findIndex]
-                ...req.body
-            }
-        await fs.writeFile(dbPath, JSON.stringify(products, null, 2))
-        res.status(201).json({
-        message: "Товар успешно изменён",
-        products: products
-        });
-        } else {
-            return  res.status(400).json({message: "Товар не найден"})
-        }
-    } catch (error) {
-        res.status(500).json({message: "Ошибка при изменении товара"})
+        const index = req.productIndex;
+        const products = req.allProducts;
+
+        // Частичное обновление через spread
+        products[index] = { ...products[index], ...req.body };
+
+        await fs.writeFile(dbPath, JSON.stringify(products, null, 2));
+        res.json({ message: "Обновлено частично", product: products[index] });
+    } catch (e) {
+        res.status(500).json({ message: "Ошибка сервера" });
     }
-
-})
+});
 
 
 app.listen(port, ()=>`Server running on http://localhost:${port}`);

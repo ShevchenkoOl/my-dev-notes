@@ -1,0 +1,40 @@
+1. создаём файл: index.ts
+       type CurrencyRates = Record<string, number>;
+
+        const rates: CurrencyRates = {
+        USD: 40,
+        EUR: 43
+        };
+
+        console.log(rates);
+
+2. npx tsc --init - в корне проекта создаёться файл tsconfig.json в уотором храняться базовые правила для транспиляции в JavaScript
+        {
+            "compilerOptions": {
+                "target": "ES2020",                                  /* Устанавливаем современный стандарт JS */
+                "module": "commonjs",                                /* Стандарт модулей для Node.js */
+                "rootDir": "./src",                                  /* Где лежат наши исходники [cite: 4] */
+                "outDir": "./dist",                                  /* Куда будет складываться готовый JS код */
+                "esModuleInterop": true,                             /* Позволяет импортировать библиотеки без костылей */
+                "forceConsistentCasingInFileNames": true,            /* Важно для работы на разных ОС */
+                "strict": true,                                      /* Включаем строгую проверку типов — это маст-хэв */
+                "skipLibCheck": true,                                /* Ускоряет компиляцию, пропуская проверку типов внутри библиотек */
+                // "removeComments": true,                           /* Убирает комнентарии в коде */ 
+                "baseUrl": ".",                                      /* Базовая папка для путей */
+                "paths": {
+                "*": ["node_modules/*", "src/*"]
+                }
+            },
+            "include": ["src/**/*"],                               /* Компилятор смотрит только в папку src */
+            "exclude": ["node_modules"]                            /* Игнорируем папку с зависимостями */
+        }
+
+3. npx tsc - транскомпиляция кода ts -> js (создаёться новый файл с расширением js который мы запускаем простой командой node index.js или npm start если у нас есть package.json)
+   npx tsc --watch или npx tsc --w - при автоматической транспиляции при внесении изменений
+
+   Например: index.js
+    const rates = {
+        USD: 40,
+        EUR: 43
+};
+console.log(rates);

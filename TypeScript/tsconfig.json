@@ -1,9 +1,19 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "commonjs",
-    "outDir": "dist",
-    "strict": true
+    "target": "ES2020",                                  /* Устанавливаем современный стандарт JS */
+    "module": "commonjs",                                /* Стандарт модулей для Node.js */
+    "rootDir": "./src",                                  /* Где лежат наши исходники [cite: 4] */
+    "outDir": "./dist",                                  /* Куда будет складываться готовый JS код */
+    "esModuleInterop": true,                             /* Позволяет импортировать библиотеки без костылей */
+    "forceConsistentCasingInFileNames": true,            /* Важно для работы на разных ОС */
+    "strict": true,                                      /* Включаем строгую проверку типов — это маст-хэв */
+    "skipLibCheck": true,                                /* Ускоряет компиляцию, пропуская проверку типов внутри библиотек */
+    // "removeComments": true,                           /* Убирает комнентарии в коде */ 
+    "baseUrl": ".",                                      /* Базовая папка для путей */
+    "paths": {
+      "*": ["node_modules/*", "src/*"]
+    }
   },
-  "exclude": ["node_modules", "**/*.js"]
+  "include": ["src/**/*"],                               /* Компилятор смотрит только в папку src */
+  "exclude": ["node_modules"]                            /* Игнорируем папку с зависимостями */
 }
