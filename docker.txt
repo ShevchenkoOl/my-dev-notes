@@ -1,3 +1,25 @@
+/*------------------------------- Как запустить проект с Docker -----------------*/
+- после инициализации проекта открывает приложение Docker;
+- в комендной строке нашего проекта запускаем команду:
+            npm run docker-compose:up
+        или то что будет написанно в package.json:
+            "docker-compose:up": "docker compose -f docker/local/docker-compose.yml up -d"
+- запускаем проект согласно скрипну в package.json: "start:watch": "concurrently --kill-others \"npm run start:watch:api\" \"npm run start:watch:web\"",
+            npm run start:whatch
+
+
+/*---------------------------------Осноыные команды---------------------------*/
+docker ps - (process status) вывод списка активных запущенных контейнеров
+docker-compose ps - выводит список запущенных контейнеров, относящихся к текущему проекту
+docker-compose restart - перезапускает контейнер, перезапуск контейнера происходит когда в еминале мы на ходимся в той папке где файл docker-compose.yml
+
+
+
+
+
+
+
+
 1. Работа с образами (Images)
 Образ — это "чертеж" или шаблон твоего приложения.
         docker pull <image_name> — скачать образ из Docker Hub.
