@@ -1,14 +1,39 @@
+/*-------------------------------Настройка проекта с Docker----------------------*/
+docker-compose.yml — это настройка проекта с несколькими контейнерами. то “инструкция”, как собрать и запустить твою мини-инфраструктуру локально (например, базу данных, API, LocalStack и т.п.)
+
+            version: "3.8"                  // Это версия синтаксиса Docker Compose файла.
+
+            services:                     // Здесь описаны сервисы (контейнеры), которые нужно запустить.
+В данном случае — только один: localstack.
+            localstack:  
+                container_name: "${LOCALSTACK_DOCKER_NAME:-localstack-main}"   // Имя контейнера.
+Если переменная окружения LOCALSTACK_DOCKER_NAME не задана — используется localstack-main.
+                image: localstack/localstack     // Это Docker-образ, из которого создаётся контейнер.
+В данном случае — официальный образ LocalStack.
+                ports:
+                - "127.0.0.1:4566:4566"            # LocalStack Gateway            // основной порт шлюза LocalStack  
+                - "127.0.0.1:4510-4559:4510-4559"  # external services port range  // порты для эмулируемых AWS-сервисов
+                environment:                // Передаёт переменные окружения внутрь контейнера
+                - DEBUG=${DEBUG:-0}         // DEBUG=${DEBUG:-0} — если переменная DEBUG не указана, значение по умолчанию — 0.
+                volumes:                    // Монтирует директории:
+                - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"  // чтобы сохранялись данные между перезапусками
+                - "/var/run/docker.sock:/var/run/docker.sock"               // позволяет контейнеру взаимодействовать с Docker-хостом (для создания других контейнеров при необходимости)
+
+
+
 /*------------------------------- Как запустить проект с Docker -----------------*/
 - после инициализации проекта открывает приложение Docker;
 - в комендной строке нашего проекта запускаем команду:
-            npm run docker-compose:up
+            npm run docker-compose up  может использовать флаг -d = detached mode, то есть: Запустить контейнеры в фоновом режиме, не блокируя терминал.
         или то что будет написанно в package.json:
             "docker-compose:up": "docker compose -f docker/local/docker-compose.yml up -d"
+             docker-compose:down - остонавливает контейнер
 - запускаем проект согласно скрипну в package.json: "start:watch": "concurrently --kill-others \"npm run start:watch:api\" \"npm run start:watch:web\"",
             npm run start:whatch
 
 
 /*---------------------------------Осноыные команды---------------------------*/
+ss -tuln | grep 4566 - проверить длкальній порт с числом 4566
 docker ps - (process status) вывод списка активных запущенных контейнеров
 docker-compose ps - выводит список запущенных контейнеров, относящихся к текущему проекту
 docker-compose restart - перезапускает контейнер, перезапуск контейнера происходит когда в еминале мы на ходимся в той папке где файл docker-compose.yml
@@ -16,6 +41,33 @@ docker-compose restart - перезапускает контейнер, пере
 
 
 
+
+
+
+/*-----------------------------Взаемодействие AWS Docker---------------------*/
+1️⃣Использкя возможности Docker создадим локальный бакет S3 (AWS) (на который в настоящем AWS у тебя могли быть ограничения).
+    aws --endpoint-url=http://localhost:4566 s3 mb s3://my-local-test-bucket
+         --endpoint-url — это секретный ключ, который говорит команде: «Не иди в интернет, иди в мой Docker», Если он ответит make_bucket: my-local-test-bucket, значит, ты официально стал «властелином» своего облака.
+         http://localhost:4566 - это наш локальный адрес где запушен Docker
+
+2️⃣ Загрузка файла в S3 backet
+    aws --endpoint-url=http://localhost:4566 s3 cp hello.txt s3://local-test-bucket/
+
+3️⃣ Проверим список файлов в баскете
+    aws --endpoint-url=http://localhost:4566 s3 ls s3://local-test-bucket/
+
+4️⃣ Деплой локальной Lambda
+    aws --endpoint-url=http://localhost:4566 lambda create-function \
+    --function-name my-local-lambda \                                   /* Дает имя твоей функции (можешь назвать как угодно)*/
+    --runtime nodejs18.x \                                              /* Говорит AWS, что мы используем Node.js (версия 18.x отлично подходит для скомпилированного TS).*/            
+    --handler index.handler \                                           /* Указывает, что точку входа нужно искать в файле index.js в функции handler.*/                                       
+    --role arn:aws:iam::000000000000:role/lambda-role \                 /* В настоящем AWS здесь был бы сложный идентификатор прав доступа. В LocalStack мы можем передать любую фейковую строку, он не проверяет права так строго. */
+    --zip-file fileb://function.zip                                     /* Передает сам архив с кодом.*/
+
+5️⃣ Запуск нагей локальной функции
+    aws --endpoint-url=http://localhost:4566 lambda invoke \
+    --function-name my-local-lambda \
+    output.txt 
 
 
 

@@ -8,7 +8,7 @@
 
         console.log(rates);
 
-2. npx tsc --init - в корне проекта создаёться файл tsconfig.json в уотором храняться базовые правила для транспиляции в JavaScript
+2. npx tsc --init - в корне проекта создаёться файл tsconfig.json в котором храняться базовые правила для транспиляции в JavaScript
         {
             "compilerOptions": {
                 "target": "ES2020",                                  /* Устанавливаем современный стандарт JS */
