@@ -15,6 +15,12 @@ CDN — Content Delivery Network- Je to globální síť serverů rozmístěnýc
 
 CLI — Command Line Interface, rozhraní příkazového řádku
 
+CRM (Customer Relationship Management) — это система управления взаимоотношениями с клиентами. В реалиях компании CRM — это сердце бизнеса. Именно там хранится информация о клиентах:
+        Кто зарегистрировался на сайте.
+        У кого куплена платная подписка (paywall) и когда она заканчивается.
+        Какие email-рассылки человек читает.
+        История оплат и активности пользователей.
+
 MBS (Merchant Business Services nebo Merchant and Banking Systems) 
 
 MVP (Minimálně životaschopný produkt) je základní verze produktu, která obsahuje pouze nejdůležitější funkce potřebné k vyřešení klíčového problému uživatele a ověření obchodní hypotézy. Cílem MVP je co nejrychleji a s minimálními náklady otestovat nápad na skutečných uživatelích, získat zpětnou vazbu a zjistit, zda má smysl produkt dále rozvíjet.
