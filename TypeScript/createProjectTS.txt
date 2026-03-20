@@ -38,3 +38,6 @@
         EUR: 43
 };
 console.log(rates);
+
+‼️если нам нужно запустить отдельный файл например index.ts:
+        npx ts-node index.ts
