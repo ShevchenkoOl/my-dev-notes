@@ -93,4 +93,5 @@ npx cdk destroy - Удаляет всё, что ты построил. Как р
 
 npm install --save-dev typescript @types/aws-lambda @types/node - Установка зависимостей, в данном случаи для AWS Lambda
 
-
+Если нам нужно запустить отдельный стек и не на робочем профиле:
+npx aws-cdk deploy S3StudyStack --profile personal   S3StudyStack - это название стека
