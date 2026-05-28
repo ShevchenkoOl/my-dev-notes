@@ -1,0 +1,155 @@
+🚀 Чек-лист: Настройка Code Quality (Vite + React + TS)
+Архитектура качества кода держится на трех китах:
+    1. Prettier — отвечает за красоту (пробелы, кавычки, переносы строк).
+    2. ESLint — отвечает за логику (неиспользуемые переменные, ошибки синтаксиса, правила React).
+    3. TypeScript (tsc) — отвечает за типы (чтобы не передать строку туда, где ожидается число).
+
+👉 Этап 1: Базовая установка пакетов
+В новом проекте сразу устанавливаем все необходимые инструменты для связки линтера и форматтера (с учетом нового Flat Config для ESLint 9+):
+
+npm install --save-dev prettier eslint-config-prettier eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh globals rimraf
+
+👉 Этап 2: Конфигурационные файлы
+  1. Prettier
+     - Создаем файл .prettierrc в корне. Здесь задаем стандарты команды:
+
+      {
+        "semi": true,
+        "singleQuote": true,
+        "tabWidth": 2,
+        "trailingComma": "es5",
+        "printWidth": 80
+      }
+
+    - Создаем .prettierignore (чтобы не форматировать мусор):
+
+      Plaintext
+      node_modules
+      dist
+      build
+      .env
+      package-lock.json
+      public
+
+2. ESLint (Flat Config)
+  - Удаляем все старые файлы .eslintrc... и создаем один eslint.config.js:
+    Секрет: Конфиг eslintConfigPrettier всегда должен идти последним в массиве, чтобы отключать конфликтные правила.
+
+      import js from '@eslint/js'
+      import globals from 'globals'
+      import react from 'eslint-plugin-react'
+      import reactHooks from 'eslint-plugin-react-hooks'
+      import reactRefresh from 'eslint-plugin-react-refresh'
+      import eslintConfigPrettier from 'eslint-config-prettier'
+
+      export default [
+        { ignores: ['dist', 'node_modules'] },
+        {
+          files: ['**/*.{js,jsx,ts,tsx}'],
+          languageOptions: {
+            ecmaVersion: 2020,
+            globals: globals.browser,
+            parserOptions: {
+              ecmaVersion: 'latest',
+              ecmaFeatures: { jsx: true },
+              sourceType: 'module',
+            },
+          },
+          settings: { react: { version: 'detect' } },
+          plugins: {
+            react,
+            'react-hooks': reactHooks,
+            'react-refresh': reactRefresh,
+          },
+          rules: {
+            ...js.configs.recommended.rules,
+            ...react.configs.recommended.rules,
+            ...react.configs['jsx-runtime'].rules,
+            ...reactHooks.configs.recommended.rules,
+            'react/prop-types': 'off', // Отключаем, если не используем старые prop-types
+            'react/jsx-no-target-blank': 'off',
+            'react-refresh/only-export-components': [
+              'warn',
+              { allowConstantExport: true },
+            ],
+          },
+        },
+        eslintConfigPrettier, // <-- Строго в конце!
+      ]
+
+📢 Возможные ошибки:
+  1. Cannot find package 'eslint-plugin-react' - означает, что в твоем проекте (в папке node_modules) физически не скачаны плагины, которые мы попросили ESLint использовать для проверки React-кода. Как исправить: нужно просто доустановить эти недостающие пакеты.
+      npm install --save-dev eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh globals
+  
+  2. 'prettier' is not recognized as an internal or external command - доустановливаем prettier:
+      npm install --save-dev prettier
+
+
+👉 Этап 3: Эталонные скрипты в package.json
+  - Вставляем этот блок в package.json. Здесь собраны скрипты на все случаи жизни.
+
+    "scripts": {
+      "dev": "vite",
+      "build": "vite build",
+      "preview": "vite preview",
+      
+      "--- CODE QUALITY ---": "",
+      "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,scss,json}\"",
+      "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,css,scss,json}\"",
+      "lint": "eslint .",
+      "lint:fix": "eslint . --fix",
+      "typecheck": "tsc --noEmit",
+      
+      "--- UTILS ---": "",
+      "clean": "rimraf dist",
+      "build:strict": "npm run clean && npm run format && npm run lint && npm run typecheck && vite build"
+    }
+
+📢 Разбор полетов: за что отвечает каждый скрипт. Обязательный минимум (Использовать каждый день)
+      npm run format — Причесывает весь код в папке src. Запускать перед каждым коммитом, чтобы код выглядел так, будто его писал один человек.
+
+      npm run lint:fix — Ищет логические ошибки и плохие практики, автоматически исправляет то, что может (например, удаляет неиспользуемые импорты).
+
+      npm run typecheck (только для TypeScript) — Прогоняет проект через компилятор TS без сборки. Выявит все ошибки типов, которые ты мог пропустить в редакторе.
+
+  - Строгая сборка (Перед деплоем)
+      npm run clean — Удаляет папку со старой сборкой (спасает от редких багов кэширования Vite).
+
+      npm run build:strict — Контрольный выстрел. Выполняет очистку, форматирование, проверку линтером, проверку типов и только если нигде нет ошибок — запускает финальную сборку. Идеально для CI/CD (GitHub Actions).
+
+📢 Возможна при запуске команды возникнет ошибка: 'rimraf' is not recognized as an internal or external command - нужна установить пакет npm install --save-dev rimraf
+Что такое и зачем вообще нужен rimraf:
+  - Поскольку ты работаешь на Windows, стандартная команда удаления папок из Linux/Mac (rm -rf) у тебя не сработает. На Windows для этого нужно писать rmdir /s /q.
+  - Пакет rimraf (сокращение от rm -rf) выступает в роли универсального «ластика». Ему всё равно, Windows у тебя, Linux или Mac — он сам подберет нужную команду под капотом и безопасно снесет нужную папку. Это незаменимая вещь для команд в package.json, чтобы они работали у любого разработчика на любой операционной системе!
+
+🔥👉 Этап 4: Продвинутые фишки (Pro-level)
+То, что отличает просто хороший проект от железобетонного.
+
+1. Настройка VS Code (Автоматизация)
+    - Чтобы не писать npm run format руками каждую минуту, заставь редактор делать это за тебя при сохранении файла Ctrl+S.
+    Создай в корне папку .vscode, а в ней файл settings.json:
+
+      {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit"
+        }
+      }
+
+2. Защита от грязных коммитов (Husky + lint-staged)
+    - Иногда забываешь запустить скрипты и пушишь кривой код. Инструмент Husky перехватывает команду git commit и автоматически запускает форматтер и линтер только для измененных файлов (чтобы не ждать проверку всего проекта). Если есть ошибки — коммит отменяется.
+
+    Быстрая установка:
+     1. npx mrm@2 lint-staged (Эта команда сама установит и настроит Husky).
+     2. В package.json появится блок lint-staged. Настрой его так:
+
+      "lint-staged": {
+        "src/**/*.{js,jsx,ts,tsx}": [
+          "prettier --write",
+          "eslint --fix"
+        ],
+        "src/**/*.{css,scss,json}": [
+          "prettier --write"
+        ]
+      }
