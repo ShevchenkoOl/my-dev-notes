@@ -11,19 +11,19 @@ npm install --save-dev prettier eslint-config-prettier eslint-plugin-react eslin
 
 👉 Этап 2: Конфигурационные файлы
   1. Prettier
-     - Создаем файл .prettierrc в корне. Здесь задаем стандарты команды:
+     - Создаем файл .prettierrc в корне. Здесь задаем стандарты команды. Официальная документация: https://prettier.io/docs/options.html:
 
       {
         "semi": true,
         "singleQuote": true,
         "tabWidth": 2,
         "trailingComma": "es5",
-        "printWidth": 80
+        "printWidth": 80,
+        "endOfLine": "auto"
       }
 
     - Создаем .prettierignore (чтобы не форматировать мусор):
 
-      Plaintext
       node_modules
       dist
       build
@@ -32,7 +32,7 @@ npm install --save-dev prettier eslint-config-prettier eslint-plugin-react eslin
       public
 
 2. ESLint (Flat Config)
-  - Удаляем все старые файлы .eslintrc... и создаем один eslint.config.js:
+  - Удаляем все старые файлы .eslintrc... и создаем один eslint.config.mjs:
     Секрет: Конфиг eslintConfigPrettier всегда должен идти последним в массиве, чтобы отключать конфликтные правила.
 
       import js from '@eslint/js'
@@ -67,7 +67,11 @@ npm install --save-dev prettier eslint-config-prettier eslint-plugin-react eslin
             ...react.configs['jsx-runtime'].rules,
             ...reactHooks.configs.recommended.rules,
             'react/prop-types': 'off', // Отключаем, если не используем старые prop-types
-            'react/jsx-no-target-blank': 'off',
+            'react/jsx-no-target-blank': 'off',     
+            'no-undef': 'off', // Отключаем проверку несуществующих переменных (TS справляется сам)
+      
+           'react-refresh/only-export-components': 'off', // Отключаем назойливое предупреждение для Next.js
+           // или
             'react-refresh/only-export-components': [
               'warn',
               { allowConstantExport: true },
@@ -153,3 +157,51 @@ npm install --save-dev prettier eslint-config-prettier eslint-plugin-react eslin
           "prettier --write"
         ]
       }
+
+📢 Возможные ошибки:
+         1. Parsing error: Unexpected token - если мы работаем на TypeScript, то нам лучше всего установить так называемый словарь терминов  npm install --save-dev typescript-eslint и обновляем eslint.config.js:
+
+            import js from '@eslint/js';
+            import globals from 'globals';
+            import react from 'eslint-plugin-react';
+            import reactHooks from 'eslint-plugin-react-hooks';
+            import reactRefresh from 'eslint-plugin-react-refresh';
+            import eslintConfigPrettier from 'eslint-config-prettier';
+            import tseslint from 'typescript-eslint'; // 1. ДОБАВИЛИ ИМПОРТ
+
+            export default [
+              { ignores: ['dist', 'node_modules', '.next'] },
+              ...tseslint.configs.recommended, // 2. ВКЛЮЧИЛИ БАЗОВЫЕ ПРАВИЛА TS
+              {
+                files: ['**/*.{js,jsx,ts,tsx}'],
+                languageOptions: {
+                  ecmaVersion: 2020,
+                  globals: globals.browser,
+                  parser: tseslint.parser, // 3. УКАЗАЛИ ИСПОЛЬЗОВАТЬ ПАРСЕР TS
+                  parserOptions: {
+                    ecmaVersion: 'latest',
+                    ecmaFeatures: { jsx: true },
+                    sourceType: 'module',
+                  },
+                },
+                settings: { react: { version: 'detect' } },
+                plugins: {
+                  react,
+                  'react-hooks': reactHooks,
+                  'react-refresh': reactRefresh,
+                },
+                rules: {
+                  ...js.configs.recommended.rules,
+                  ...react.configs.recommended.rules,
+                  ...react.configs['jsx-runtime'].rules,
+                  ...reactHooks.configs.recommended.rules,
+                  'react/prop-types': 'off',
+                  'react/jsx-no-target-blank': 'off',
+                  'react-refresh/only-export-components': [
+                    'warn',
+                    { allowConstantExport: true },
+                  ],
+                },
+              },
+              eslintConfigPrettier,
+            ];
